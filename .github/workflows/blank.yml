@@ -1,0 +1,17 @@
+name: Wush Tunnel
+
+on:
+  workflow_dispatch:
+
+jobs:
+  tunnel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: نصب wush
+        run: |
+          curl -fsSL https://github.com/coder/wush/raw/refs/heads/main/install.sh | sh
+          sudo cp wush /usr/local/bin/
+
+      - name: اجرای تونل wush
+        uses: coder/wush-action@v1.0.0
+        timeout-minutes: 360
