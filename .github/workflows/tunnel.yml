@@ -1,4 +1,4 @@
-name: SSH2 Tunnel
+name: Direct Tunnel
 
 on:
   workflow_dispatch:
@@ -7,11 +7,8 @@ jobs:
   tunnel:
     runs-on: ubuntu-latest
     steps:
-      - name: Install sshpass
-        run: sudo apt-get update && sudo apt-get install -y sshpass
-
-      - name: Create SSH Tunnel
+      - name: Direct SSH Tunnel
         run: |
-          sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no -R 5555:localhost:5555 -N root@193.31.117.165 -p 9011 &
-          echo "Tunnel is running on port 5555"
+          sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no -R 9098:localhost:9098 -N root@193.31.117.165 -p 9011 &
+          echo "Tunnel is running"
           sleep 21600
