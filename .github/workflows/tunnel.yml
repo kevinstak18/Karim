@@ -1,4 +1,4 @@
-name: SSH Tunnel
+name: SSH2 Tunnel
 
 on:
   workflow_dispatch:
@@ -12,6 +12,6 @@ jobs:
 
       - name: Create SSH Tunnel
         run: |
-          sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no -R 9090:localhost:9090 -N root@193.31.117.165 -p 9011 &
-          echo "Tunnel is running"
+          sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no -R 5555:localhost:5555 -N root@193.31.117.165 -p 9011 &
+          echo "Tunnel is running on port 5555"
           sleep 21600
