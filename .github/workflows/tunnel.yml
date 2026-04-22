@@ -10,8 +10,6 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
-      - name: Create SSH Tunnel
+      - name: Test SSH Connection
         run: |
-          sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no -R 9090:localhost:9090 -N root@193.31.117.165 -p 9011 &
-          echo "Tunnel is running on port 9090"
-          sleep 21600
+          sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 root@193.31.117.165 -p 9011 "echo 'SSH connection successful'"
