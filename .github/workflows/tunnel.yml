@@ -1,4 +1,4 @@
-name: SSH Tunnel
+name: SSH Tunnel with tmate
 
 on:
   workflow_dispatch:
@@ -7,9 +7,15 @@ jobs:
   tunnel:
     runs-on: ubuntu-latest
     steps:
-      - name: Install sshpass
-        run: sudo apt-get update && sudo apt-get install -y sshpass
+      - name: Install tmate
+        run: sudo apt-get update && sudo apt-get install -y tmate
 
-      - name: Test SSH Connection
+      - name: Start tmate
         run: |
-          sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 root@193.31.117.165 -p 9011 "echo 'SSH connection successful'"
+          tmate -S /tmp/tmate.sock new-session -d
+          tmate -S /tmp/tmate.sock wait tmate-ready
+          echo "Connect to this runner using:"
+          tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'
+          echo ""
+          echo "SSH connection will stay alive for 6 hours"
+          sleep 21600
