@@ -1,0 +1,6 @@
+{
+    "name": "Systemd Codespace",
+    "build": { "dockerfile": "Dockerfile" },
+    "privileged": true,
+    "overrideCommand": false
+}
